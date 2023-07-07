@@ -1,0 +1,9 @@
+1. Initialize git repository
+    > git init
+
+2. Create notes file
+    > touch notes.txt
+
+3. Make initial commit 
+    > git add.
+    > git commit -m 'Initial Commit'
