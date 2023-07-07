@@ -1,0 +1,19 @@
+{
+    "name": "fpaipl/authy",
+    "description": "Auth package to provide both web and api authentication.",
+    "type": "library",
+    "license": "unlicensed",
+    "autoload": {
+        "psr-4": {
+            "Fpaipl\\Authy\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Piyush Gupta",
+            "email": "pg.softcode@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}

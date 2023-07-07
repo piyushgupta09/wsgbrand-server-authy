@@ -7,3 +7,8 @@
 3. Make initial commit 
     > git add.
     > git commit -m 'Initial Commit'
+
+4. Initialize composer package
+    > composer init
+    > composer install
+    
