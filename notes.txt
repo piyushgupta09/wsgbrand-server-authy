@@ -11,4 +11,19 @@
 4. Initialize composer package
     > composer init
     > composer install
-    
+
+5. Install packages
+    > composer require laravel/fortify
+    > composer require spatie/laravel-permission
+    > composer require spatie/laravel-activitylog
+    > composer require livewire/livewire
+
+6. Create AuthyServiceProvider.php
+    > touch ./src/AuthyServiceProvider.php
+    > add following files and directories:
+        1. config/fortify.php, 
+        2. config/permission.php, 
+        3. database/migrations/*,
+        4. lang/en,
+        5. routes/api.php,
+        6. routes/web.php,
