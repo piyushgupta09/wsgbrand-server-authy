@@ -17,6 +17,7 @@ class UserResource extends JsonResource
         return [
             'name' => $this->name,
             'email' => $this->email,
+            'mobile' => $this->mobile,
             'verified' => isset($this->email_verified_at),
             'image' => $this->getFirstMediaUrl('profile'),
             'roles' => $this->getMyRoles(),

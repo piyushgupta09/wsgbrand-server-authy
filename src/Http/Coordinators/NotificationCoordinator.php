@@ -5,16 +5,36 @@ namespace Fpaipl\Authy\Http\Coordinators;
 use Illuminate\Http\Request;
 use Fpaipl\Panel\Http\Responses\ApiResponse;
 use Fpaipl\Panel\Http\Coordinators\Coordinator;
+use Fpaipl\Authy\Http\Resources\NotificationResource;
 
 class NotificationCoordinator extends Coordinator
 {
-    public function index()
+    public function index(Request $request)
     {
         /** @var User $user */
         $user = auth()->user();
-        $notifications = $user->notifications()->paginate(10);
+
+        $perPage = $request->perpage ?? 20;
+        $search = $request->search ?? null;
+        $status = $request->status ?? null;
+
+        $notifications = $user->notifications()
+            ->when($search, function ($query, $search) {
+                return $query->where('data->body', 'like', "%$search%");
+            })
+            ->when($status, function ($query, $status) {
+                // if $status is unread then we need to check for read_at is null, else we need to check for read_at is not null
+                if ($status === 'unread') {
+                    return $query->whereNull('read_at');
+                }
+                if ($status === 'read') {
+                    return $query->whereNotNull('read_at');
+                }
+            })
+            ->paginate($perPage);
+
         return ApiResponse::success([
-            'data' => $notifications,
+            'data' => NotificationResource::collection($notifications),
             'pagination' => [
                 'total' => $notifications->total(),
                 'per_page' => $notifications->perPage(),
@@ -31,7 +51,9 @@ class NotificationCoordinator extends Coordinator
         /** @var User $user */
         $user = auth()->user();
         $notifications = $user->unreadNotifications()->get();
-        return ApiResponse::success($notifications);
+        return ApiResponse::success(
+            NotificationResource::collection($notifications)
+        );
     }
 
     public function markRead(Request $request, $notification)
