@@ -76,7 +76,7 @@ class NotificationCoordinator extends Coordinator
     {
         /** @var User $user */
         $user = auth()->user();
-        $channel = $user->isBrand() ? $user->uuid : $user->party->uuid;
+        // $channel = $user->isBrand() ? $user->uuid : $user->party->uuid;
 
         if ($user->isBrand()) {
             $event ='brand-event';
@@ -88,7 +88,8 @@ class NotificationCoordinator extends Coordinator
     
         return ApiResponse::success([
             'event' => $event,
-            'channel' => $channel,
+            // 'channel' => $channel,
+            'channel' => $user->uuid,
             'key' => config('pusher.app_key'),
         ]);
     }
