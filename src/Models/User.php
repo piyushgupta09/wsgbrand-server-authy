@@ -190,7 +190,7 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
 
     public function isSuperAdmin()
     {
-        return $this->email == 'admin@admin.com' || $this->email == 'pg.softcode@gmail.com' || $this->email == 'ayush@gmail.com';
+        return $this->email == 'admin@admin.com' || $this->email == 'pg.softcode@gmail.com';
     }
 
     public function pushNotifications()
